@@ -24,4 +24,14 @@ public final class DefaultIndividual<T> implements Individual<T> {
     public Number fitness(FitnessTest<T> test) {
         return test.score(this.genes());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DefaultIndividual<?> that = (DefaultIndividual<?>) o;
+
+        return genes != null ? genes.equals(that.genes) : that.genes == null;
+    }
 }

@@ -5,6 +5,6 @@ import java.util.List;
 /**
  * @author Braulio Lopez (brauliop.3@gmail.com)
  */
-public interface Evolve {
-    Population newPopulation(List<Individual> individuals);
+public interface Evolution<T> {
+    Population<T> nextGeneration(List<Individual<T>> individuals);
 }

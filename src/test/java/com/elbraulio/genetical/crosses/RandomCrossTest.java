@@ -38,7 +38,7 @@ public class RandomCrossTest {
         genesB.add(5);
         genesB.add(6);
         MatcherAssert.assertThat(
-                new RandomCross<Integer>(1d).genes(genesA, genesB),
+                new RandomCross<Integer>(0.99d).genes(genesA, genesB),
                 Matchers.contains(genesA.toArray(new Integer[3]))
         );
     }

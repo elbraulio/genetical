@@ -17,6 +17,10 @@ public final class RandomCross<T> implements Crosses<T> {
 
     @Override
     public List<T> genes(List<T> genesA, List<T> genesB) {
+        if (this.threshold >= 1)
+            throw new IllegalArgumentException(
+                    "mutation threshold must be in range [0, 1)"
+            );
         final List<T> newGenes = new ArrayList<>(genesA.size());
         for (int i = 0; i < genesA.size(); i++) {
             newGenes.add(

@@ -12,12 +12,12 @@ import java.util.List;
  */
 public final class FittestEvolve<T> implements Evolution<T> {
 
-    private final Tournament<T> tournament;
+    private final FittestSelection<T> tournament;
     private final Crosses<T> crosses;
     private final Mutation<T> mutation;
 
     public FittestEvolve(
-            Tournament<T> tournament, Crosses<T> crosses, Mutation<T> mutation
+            FittestSelection<T> tournament, Crosses<T> crosses, Mutation<T> mutation
     ) {
         this.tournament = tournament;
         this.crosses = crosses;
@@ -33,10 +33,10 @@ public final class FittestEvolve<T> implements Evolution<T> {
                     new DefaultIndividual<>(
                             this.mutation.genes(
                                     this.crosses.genes(
-                                            this.tournament.compete(
+                                            this.tournament.fittest(
                                                     individuals
                                             ).genes(),
-                                            this.tournament.compete(
+                                            this.tournament.fittest(
                                                     individuals
                                             ).genes()
                                     )

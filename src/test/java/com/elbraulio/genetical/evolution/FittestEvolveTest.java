@@ -1,9 +1,9 @@
 package com.elbraulio.genetical.evolution;
 
 import com.elbraulio.genetical.Crosses;
+import com.elbraulio.genetical.FittestSelection;
 import com.elbraulio.genetical.Individual;
 import com.elbraulio.genetical.Mutation;
-import com.elbraulio.genetical.Tournament;
 import com.elbraulio.genetical.individual.DefaultIndividual;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -28,9 +28,9 @@ public class FittestEvolveTest {
         ancestors.add(new DefaultIndividual<>(genes));
         MatcherAssert.assertThat(
                 new FittestEvolve<>(
-                        new Tournament<Integer>() {
+                        new FittestSelection<Integer>() {
                             @Override
-                            public Individual<Integer> compete(
+                            public Individual<Integer> fittest(
                                     List<Individual<Integer>> individuals
                             ) {
                                 return individuals.get(0);

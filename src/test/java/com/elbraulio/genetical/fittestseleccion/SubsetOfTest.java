@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Braulio Lopez (brauliop.3@gmail.com)
@@ -26,10 +27,8 @@ public class SubsetOfTest {
                     1,
                     (individuals1 -> individuals1.get(1))
             ).fittest(individuals);
-        } catch (Exception e) {
-            assertEquals(
-                    "Index 1 out-of-bounds for length 1", e.getMessage()
-            );
+        } catch (IndexOutOfBoundsException e) {
+            assertTrue(true);
         }
     }
 

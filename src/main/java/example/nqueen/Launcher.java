@@ -12,6 +12,7 @@ import com.elbraulio.genetical.genoseed.IntSeed;
 import com.elbraulio.genetical.individual.DefaultIndividual;
 import com.elbraulio.genetical.mutation.IntMutation;
 import com.elbraulio.genetical.population.DefaultPopulation;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
@@ -19,6 +20,9 @@ import java.util.*;
  * @author Braulio Lopez (brauliop.3@gmail.com)
  */
 public final class Launcher {
+
+    private static final Logger logger = Logger.getLogger(Launcher.class);
+
     public static void main(String[] args) {
         final int populationSize = 1000;
         final int tournamentSize = 10;
@@ -57,7 +61,7 @@ public final class Launcher {
                             )
                     )
             );
-            System.out.println(
+            logger.info(
                     "Fittest individual from offspring " + offspring.size()
             );
             printBoard(
@@ -65,7 +69,7 @@ public final class Launcher {
                     offspring.get(offspring.size() - 1).fittest(fittestSelection)
             );
         }
-        System.out.println(
+        logger.info(
                 "Solution found after " + offspring.size() + " " + "offspring"
         );
         printBoard(
@@ -81,10 +85,10 @@ public final class Launcher {
         for (int i = 0; i < boardSize; i++) {
             board[individual.genes().get(i)][i] = 1;
         }
-        System.out.println("------------");
+        logger.info("------------");
         for (int[] row : board) {
-            System.out.println(Arrays.toString(row));
+            logger.info(Arrays.toString(row));
         }
-        System.out.println("------------");
+        logger.info("------------");
     }
 }

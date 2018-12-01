@@ -26,7 +26,7 @@ public final class Launcher {
     public static void main(String[] args) {
         final int populationSize = 1000;
         final int tournamentSize = 10;
-        final int n = 4;
+        final int n = 8;
         final Random randomness = new Random();
         final CheckSolution<Integer> boardSolution = new BoardSolution();
         final FittestSelection<Integer> fittestSelection =
@@ -54,7 +54,7 @@ public final class Launcher {
                                             tournamentSize,
                                             fittestSelection
                                     ),
-                                    new RandomCross<>(0d),
+                                    new RandomCross<>(0.5d),
                                     new IntMutation(
                                             0.2, randomness, n
                                     )

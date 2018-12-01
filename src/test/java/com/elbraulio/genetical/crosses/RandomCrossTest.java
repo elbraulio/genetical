@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Braulio Lopez (brauliop.3@gmail.com)
  */
@@ -41,5 +43,15 @@ public class RandomCrossTest {
                 new RandomCross<Integer>(0.99d).genes(genesA, genesB),
                 Matchers.contains(genesA.toArray(new Integer[3]))
         );
+    }
+
+    @Test
+    public void illegalArgument() {
+        try {
+            new RandomCross<>(1).genes(null, null);
+            assertTrue(false);
+        } catch (IllegalArgumentException e) {
+            assertTrue(true);
+        }
     }
 }

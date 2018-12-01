@@ -1,6 +1,9 @@
 package example.nqueen;
 
-import com.elbraulio.genetical.*;
+import com.elbraulio.genetical.CheckSolution;
+import com.elbraulio.genetical.FittestSelection;
+import com.elbraulio.genetical.Individual;
+import com.elbraulio.genetical.Population;
 import com.elbraulio.genetical.crosses.RandomCross;
 import com.elbraulio.genetical.evolution.FittestEvolve;
 import com.elbraulio.genetical.fittestseleccion.FittestByScore;
@@ -19,31 +22,18 @@ public final class Launcher {
     public static void main(String[] args) {
         final int populationSize = 1000;
         final int tournamentSize = 10;
-        final int n = 20;
-        if(!existSolution(n)) {
-            System.out.println("Solution does not exist for N = " + n);
-            System.exit(0);
-        }
+        final int n = 4;
         final Random randomness = new Random();
-        final Crosses<Integer> crosses = new RandomCross<>(0d);
-        final Mutation<Integer> mutation = new IntMutation(
-                0.2, randomness, n
-        );
-        final GenotypeSeed<Integer> boardSeed = new IntSeed(n, randomness);
         final CheckSolution<Integer> boardSolution = new BoardSolution();
         final FittestSelection<Integer> fittestSelection =
                 new FittestByScore<>(boardSolution);
-        final FittestSelection<Integer> tournament = new SubsetOf<>(
-                tournamentSize,
-                fittestSelection
-        );
         final List<Population<Integer>> offspring = new LinkedList<>();
         final List<Individual<Integer>> individuals =
                 new ArrayList<>(populationSize);
         for (int i = 0; i < populationSize; i++) {
             individuals.add(
                     new DefaultIndividual<>(
-                            boardSeed.genes()
+                            new IntSeed(n, randomness).genes()
                     )
             );
         }
@@ -56,9 +46,14 @@ public final class Launcher {
             offspring.add(
                     offspring.get(offspring.size() - 1).evolve(
                             new FittestEvolve<>(
-                                    tournament,
-                                    crosses,
-                                    mutation
+                                    new SubsetOf<>(
+                                            tournamentSize,
+                                            fittestSelection
+                                    ),
+                                    new RandomCross<>(0d),
+                                    new IntMutation(
+                                            0.2, randomness, n
+                                    )
                             )
                     )
             );
@@ -77,10 +72,6 @@ public final class Launcher {
                 n,
                 offspring.get(offspring.size() - 1).fittest(fittestSelection)
         );
-    }
-
-    private static boolean existSolution(int n) {
-        return new NQueenProblem(n).solveNQ();
     }
 
     private static void printBoard(int boardSize,

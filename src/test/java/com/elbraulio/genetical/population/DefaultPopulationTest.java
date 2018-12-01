@@ -1,7 +1,9 @@
 package com.elbraulio.genetical.population;
 
+import com.elbraulio.genetical.Evolution;
 import com.elbraulio.genetical.FittestSelection;
 import com.elbraulio.genetical.Individual;
+import com.elbraulio.genetical.Population;
 import com.elbraulio.genetical.individual.DefaultIndividual;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -36,6 +38,29 @@ public class DefaultPopulationTest {
                         }
                 ),
                 Matchers.equalTo(new DefaultIndividual<>(genes))
+        );
+    }
+
+    @Test
+    public void evolveSize() {
+        final List<Integer> genes = new ArrayList<>(3);
+        genes.add(1);
+        genes.add(2);
+        genes.add(3);
+        final List<Individual<Integer>> individuals = new ArrayList<>(3);
+        individuals.add(new DefaultIndividual<>(genes));
+        individuals.add(new DefaultIndividual<>(genes));
+        individuals.add(new DefaultIndividual<>(genes));
+        MatcherAssert.assertThat(
+                new DefaultPopulation<>(individuals).evolve(
+                        new Evolution<Integer>() {
+                            @Override
+                            public Population<Integer> nextGeneration(List<Individual<Integer>> individuals) {
+                                return new DefaultPopulation<>(individuals);
+                            }
+                        }
+                ).individuals().size(),
+                Matchers.equalTo(individuals.size())
         );
     }
 }

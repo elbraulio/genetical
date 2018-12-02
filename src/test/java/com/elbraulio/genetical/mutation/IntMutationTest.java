@@ -15,27 +15,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class IntMutationTest {
     @Test
-    public void lowThresholdMutateAllGenes() {
-        final List<Integer> genesA = new ArrayList<>(4);
-        genesA.add(10);
-        genesA.add(9);
-        genesA.add(8);
-        genesA.add(7);
-        final List<Integer> genesB = new ArrayList<>(4);
-        genesB.add(0);
-        genesB.add(0);
-        genesB.add(0);
-        genesB.add(0);
-        MatcherAssert.assertThat(
-                new IntMutation(0, new Random(), 1).genes(
-                        genesA
-                ),
-                Matchers.contains(genesB.toArray(new Integer[4]))
-        );
-    }
-
-    @Test
-    public void highThresholdDoesNotMutateAllGenes() {
+    public void highThresholdMutateAllGenes() {
         final List<Integer> genesA = new ArrayList<>(4);
         genesA.add(10);
         genesA.add(9);
@@ -48,6 +28,26 @@ public class IntMutationTest {
         genesB.add(0);
         MatcherAssert.assertThat(
                 new IntMutation(0.99, new Random(), 1).genes(
+                        genesA
+                ),
+                Matchers.contains(genesB.toArray(new Integer[4]))
+        );
+    }
+
+    @Test
+    public void lowThresholdDoesNotMutateAllGenes() {
+        final List<Integer> genesA = new ArrayList<>(4);
+        genesA.add(10);
+        genesA.add(9);
+        genesA.add(8);
+        genesA.add(7);
+        final List<Integer> genesB = new ArrayList<>(4);
+        genesB.add(0);
+        genesB.add(0);
+        genesB.add(0);
+        genesB.add(0);
+        MatcherAssert.assertThat(
+                new IntMutation(0, new Random(), 1).genes(
                         genesA
                 ),
                 Matchers.contains(genesA.toArray(new Integer[4]))

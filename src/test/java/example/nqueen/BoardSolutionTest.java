@@ -6,13 +6,14 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Braulio Lopez (brauliop.3@gmail.com)
  */
 public class BoardSolutionTest {
     @Test
-    public void fourSquareSolution(){
+    public void fourSquareSolution() {
         final List<Integer> genes = new ArrayList<>(4);
         genes.add(1);
         genes.add(3);
@@ -24,7 +25,7 @@ public class BoardSolutionTest {
     }
 
     @Test
-    public void oneSquareTwoScore(){
+    public void oneSquareTwoScore() {
         final List<Integer> genes = new ArrayList<>(4);
         genes.add(1);
         genes.add(3);

@@ -22,6 +22,7 @@ out/
 *.iml
 target/
 *.log
+logs/
 
 npm-debug.log*
 yarn-debug.log*

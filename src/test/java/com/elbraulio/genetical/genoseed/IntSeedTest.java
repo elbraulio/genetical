@@ -13,7 +13,7 @@ public class IntSeedTest {
     @Test
     public void size() {
         MatcherAssert.assertThat(
-                new IntSeed(10, new Random()).genes().size(),
+                new IntSeed(10, new Random()).genes(10).size(),
                 Matchers.is(10)
         );
     }

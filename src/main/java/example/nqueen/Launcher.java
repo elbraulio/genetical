@@ -32,7 +32,7 @@ public final class Launcher {
         // tournament size
         final int tournamentSize = 10;
         // queens to place on board (board size)
-        final int queens = 7;
+        final int queens = 4;
         // probability for an individual to leave inheritance by gene
         final double crossThreshold = 0.5;
         // probability to have a mutation by gene
@@ -45,7 +45,7 @@ public final class Launcher {
         }
         // seed to build first population
         final GenotypeSeed<Integer> seed = new IntSeed(queens, new Random());
-        // build first population
+        // build first population with a seed
         final List<Individual<Integer>> individuals = new ArrayList<>(popSize);
         for (int i = 0; i < popSize; i++) {
             individuals.add(new DefaultIndividual<>(seed.genes(queens)));

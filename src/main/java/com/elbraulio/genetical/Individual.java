@@ -7,6 +7,4 @@ import java.util.List;
  */
 public interface Individual<T> {
     List<T> genes();
-
-    Number fitness(FitnessTest<T> test);
 }

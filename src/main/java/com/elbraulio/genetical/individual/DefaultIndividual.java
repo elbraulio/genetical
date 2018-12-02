@@ -1,6 +1,5 @@
 package com.elbraulio.genetical.individual;
 
-import com.elbraulio.genetical.FitnessTest;
 import com.elbraulio.genetical.Individual;
 
 import java.util.List;
@@ -18,11 +17,6 @@ public final class DefaultIndividual<T> implements Individual<T> {
     @Override
     public List<T> genes() {
         return this.genes;
-    }
-
-    @Override
-    public Number fitness(FitnessTest<T> test) {
-        return test.score(this.genes());
     }
 
     @Override

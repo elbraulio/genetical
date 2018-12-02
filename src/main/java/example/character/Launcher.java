@@ -36,6 +36,7 @@ public final class Launcher {
         final double crossThreshold = 0.5;
         // probability to have a mutation by gene
         final double mutationThreshold = 0.1;
+        // alphabet of possible genes
         final String alphabet = "abcdefghijklmnopqrstuvwxyz";
         // ##################################
         // ##################################

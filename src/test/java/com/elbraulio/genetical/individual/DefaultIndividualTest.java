@@ -22,20 +22,4 @@ public class DefaultIndividualTest {
                 Matchers.contains(genes.toArray(new Integer[3]))
         );
     }
-
-    @Test
-    public void allGenesArePartOfTestFitness() {
-        final List<Integer> genes = new ArrayList<>(3);
-        genes.add(1);
-        genes.add(2);
-        genes.add(3);
-        MatcherAssert.assertThat(
-                new DefaultIndividual<>(genes).fitness(
-                        (genesList) ->
-                                genesList.get(0) * genesList.get(1) *
-                                        genesList.get(2)
-                ),
-                Matchers.is(6)
-        );
-    }
 }

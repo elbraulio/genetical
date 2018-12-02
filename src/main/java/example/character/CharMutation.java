@@ -28,7 +28,7 @@ public final class CharMutation implements Mutation<Character> {
             );
         final List<Character> mutation = new ArrayList<>(origin.size());
         for (Character gene : origin) {
-            if (this.threshold < Math.random()) {
+            if (this.threshold > Math.random()) {
                 mutation.add(
                         this.alphabet.charAt(
                                 this.random.nextInt(this.alphabet.length())

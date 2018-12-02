@@ -28,7 +28,7 @@ public final class IntMutation implements Mutation<Integer> {
             );
         final List<Integer> mutation = new ArrayList<>(origin.size());
         for (Integer gene : origin) {
-            if (this.threshold < Math.random()) {
+            if (this.threshold > Math.random()) {
                 mutation.add(
                         this.randomness.nextInt(this.bound)
                 );

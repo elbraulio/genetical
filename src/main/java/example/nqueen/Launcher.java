@@ -28,15 +28,15 @@ public final class Launcher {
         // ############CONFIGURATION#########
         // ##################################
         // population size
-        final int popSize = 1000;
+        final int popSize = 100;
         // tournament size
-        final int tournamentSize = 10;
+        final int tournamentSize = 50;
         // queens to place on board (board size)
-        final int queens = 4;
+        final int queens = 12;
         // probability for an individual to leave inheritance by gene
         final double crossThreshold = 0.5;
         // probability to have a mutation by gene
-        final double mutationThreshold = 0.2;
+        final double mutationThreshold = 0.2d;
         // ##################################
         // ##################################
         if (queens <= 3) {

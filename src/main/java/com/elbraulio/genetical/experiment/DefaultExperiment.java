@@ -3,7 +3,7 @@ package com.elbraulio.genetical.experiment;
 import com.elbraulio.genetical.*;
 import com.elbraulio.genetical.evolution.FittestEvolve;
 import com.elbraulio.genetical.fittestseleccion.SubsetOf;
-import com.elbraulio.genetical.PrintSolution;
+import example.PrecisionChart;
 import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
@@ -35,6 +35,8 @@ public final class DefaultExperiment<T> implements Experiment<T> {
 
     @Override
     public void run(int tournamentSize, int minScore, Population<T> startPop) {
+        final List<Number> scoreAverage = new LinkedList<>();
+        final List<Number> fittestScore = new LinkedList<>();
         final List<Population<T>> offspring = new LinkedList<>();
         offspring.add(startPop);
         while (
@@ -44,6 +46,13 @@ public final class DefaultExperiment<T> implements Experiment<T> {
                         ).genes()
                 ) < minScore
         ) {
+            scoreAverage.add(scoreAverage(offspring.get(offspring.size() - 1)));
+            fittestScore.add(
+                    this.solution.score(
+                            offspring.get(offspring.size() - 1)
+                                    .fittest(this.fittestSelection).genes()
+                    )
+            );
             offspring.add(
                     offspring.get(offspring.size() - 1).evolve(
                             new FittestEvolve<>(
@@ -65,6 +74,13 @@ public final class DefaultExperiment<T> implements Experiment<T> {
                     )
             );
         }
+        scoreAverage.add(scoreAverage(offspring.get(offspring.size() - 1)));
+        fittestScore.add(
+                this.solution.score(
+                        offspring.get(offspring.size() - 1)
+                                .fittest(this.fittestSelection).genes()
+                )
+        );
         this.logger.info(
                 "Solution found after " + offspring.size() + " " +
                         "offspring"
@@ -74,5 +90,30 @@ public final class DefaultExperiment<T> implements Experiment<T> {
                         this.fittestSelection
                 )
         );
+        new PrecisionChart(
+                scoreAverage.toArray(new Number[scoreAverage.size()]),
+                "Score average by offspring.\nScore accepted as fittest = " + minScore,
+                minScore
+
+        ).show();
+        new PrecisionChart(
+                fittestScore.toArray(new Number[fittestScore.size()]),
+                "Fittest score by offspring.\nScore accepted as fittest = " + minScore,
+                minScore
+        ).show();
+    }
+
+    /**
+     * calculate score average for a given Population
+     *
+     * @param population to calculate score average
+     * @return score average
+     */
+    private Number scoreAverage(Population<T> population) {
+        double average = 0d;
+        for (Individual<T> individual : population.individuals()) {
+            average += this.solution.score(individual.genes());
+        }
+        return average / population.individuals().size();
     }
 }

@@ -29,15 +29,15 @@ public final class Launcher {
         // population size
         final int popSize = 10;
         // tournament size
-        final int tournamentSize = 10;
+        final int tournamentSize = 5;
         // bit chain size
-        final int chars = 3;
+        final int chars = 10;
+        // alphabet of possible genes
+        final String alphabet = "abcdefghijklmnopqrstuvwxyz";
         // probability for an individual to leave inheritance by gene
         final double crossThreshold = 0.5;
         // probability to have a mutation by gene
         final double mutationThreshold = 0.1;
-        // alphabet of possible genes
-        final String alphabet = "abcdefghijklmnopqrstuvwxyz";
         // ##################################
         // ##################################
         // seed to build first population

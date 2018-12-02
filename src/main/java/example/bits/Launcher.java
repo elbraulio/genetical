@@ -28,11 +28,11 @@ public final class Launcher {
         // ############CONFIGURATION#########
         // ##################################
         // population size
-        final int popSize = 10;
+        final int popSize = 100;
         // tournament size
-        final int tournamentSize = 10;
+        final int tournamentSize = 5;
         // bit chain size
-        final int bits = 7;
+        final int bits = 40;
         // probability for an individual to leave inheritance by gene
         final double crossThreshold = 0.5;
         // probability to have a mutation by gene

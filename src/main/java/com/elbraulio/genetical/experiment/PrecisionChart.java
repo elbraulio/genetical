@@ -1,4 +1,4 @@
-package example;
+package com.elbraulio.genetical.experiment;
 
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XYChart;

@@ -1,4 +1,4 @@
-package example.bits;
+package com.elbraulio.genetical.checksolution;
 
 import com.elbraulio.genetical.CheckSolution;
 import com.elbraulio.genetical.Individual;

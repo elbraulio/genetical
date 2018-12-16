@@ -1,4 +1,4 @@
-package example.nqueen;
+package com.elbraulio.genetical.checksolution;
 
 import com.elbraulio.genetical.CheckSolution;
 

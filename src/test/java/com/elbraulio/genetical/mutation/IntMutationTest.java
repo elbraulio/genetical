@@ -27,7 +27,7 @@ public class IntMutationTest {
         genesB.add(0);
         genesB.add(0);
         MatcherAssert.assertThat(
-                new IntMutation(0.99, new Random(), 1).genes(
+                new IntMutation(0.99999, new Random(), 1).genes(
                         genesA
                 ),
                 Matchers.contains(genesB.toArray(new Integer[4]))

@@ -1,4 +1,4 @@
-package example.character;
+package com.elbraulio.genetical.genoseed;
 
 import com.elbraulio.genetical.GenotypeSeed;
 

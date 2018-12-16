@@ -1,4 +1,4 @@
-package example.character;
+package com.elbraulio.genetical.mutation;
 
 import com.elbraulio.genetical.Mutation;
 

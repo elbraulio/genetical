@@ -1,5 +1,6 @@
-package example.character;
+package com.elbraulio.genetical.mutation;
 
+import com.elbraulio.genetical.mutation.CharMutation;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;

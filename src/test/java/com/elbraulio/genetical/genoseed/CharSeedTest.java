@@ -1,5 +1,6 @@
-package example.character;
+package com.elbraulio.genetical.genoseed;
 
+import com.elbraulio.genetical.genoseed.CharSeed;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;

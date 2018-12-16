@@ -1,5 +1,6 @@
-package example.bits;
+package com.elbraulio.genetical.checksolution;
 
+import com.elbraulio.genetical.checksolution.EqualSolution;
 import com.elbraulio.genetical.individual.DefaultIndividual;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;

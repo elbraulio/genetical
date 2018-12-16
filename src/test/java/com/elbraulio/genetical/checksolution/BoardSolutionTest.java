@@ -1,12 +1,12 @@
-package example.nqueen;
+package com.elbraulio.genetical.checksolution;
 
+import com.elbraulio.genetical.checksolution.BoardSolution;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Braulio Lopez (brauliop.3@gmail.com)

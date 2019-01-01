@@ -64,14 +64,6 @@ public final class DefaultExperiment<T> implements Experiment<T> {
                             )
                     )
             );
-            this.logger.info(
-                    "Fittest individual from offspring " + offspring.size()
-            );
-            this.printSolution.print(
-                    offspring.get(offspring.size() - 1).fittest(
-                            this.fittestSelection
-                    )
-            );
         }
         scoreAverage.add(scoreAverage(offspring.get(offspring.size() - 1)));
         fittestScore.add(

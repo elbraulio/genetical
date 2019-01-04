@@ -9,4 +9,5 @@ public interface Population <T> {
     Population<T> evolve(Evolution<T> evolution);
     Individual<T> fittest(FittestSelection<T> selection);
     List<Individual<T>> individuals();
+    Number[] scores(CheckSolution<T> solution);
 }

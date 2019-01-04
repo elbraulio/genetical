@@ -2,7 +2,9 @@
 
 
 
-# How to use
+__genetical__ is a java tool for using genetic algorithm.
+
+# 1. Install
 
 #### maven
 
@@ -16,7 +18,7 @@
     </dependency>
 </dependencies>
 
-<!-- for genetical -->
+<!-- elbraulio.com tools -->
 <repositories>
 	<repository>
 	    <id>jitpack.io</id>
@@ -40,3 +42,41 @@ allprojects {
 	}
 }
 ```
+
+# 2. How to use
+
+## 2.1 Indiviual and genes
+
+You can define whatever you want as gene, then you will have a _Individual_ who has those genes. __genetical__ provides a `DefaultIndividual` who only stores a list of _genes_ and give them when someone requieres it.
+
+For instance, we can have a _genes_ as String
+
+```java
+List<String> genes = buildGenes();
+Individual<String> stringIndividual = new DefaultIndividual(genes);
+```
+
+## 2.2 Population
+
+A _population_ is defined as a collection of _Individuals_ that can cross each others. So, for instance we can create a _Population_ of _Individuals_ with genes as String
+
+```java
+Population<String> startPop = new DefaultPopulation<>(stringIndividual);
+```
+
+and we can evolve it to create a new _Population_ (generation) of _Individuals_ by defining a way to evolve.
+
+### 2.2.1 evolve
+
+___genetical__ provide a default evolve wich is _FittestEvolve_, wich needs a __FittestSelection__, __Crosses__ and __Mutation__.
+
+#### FittestSelection
+
+Follows the concept of [Natural Selection](https://en.wikipedia.org/wiki/Natural_selection). Wich says that the fittest individual will survive and reproduce.
+
+
+
+```java
+startPop.evolve()
+```
+

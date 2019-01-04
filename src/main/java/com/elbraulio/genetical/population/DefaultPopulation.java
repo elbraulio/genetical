@@ -1,9 +1,6 @@
 package com.elbraulio.genetical.population;
 
-import com.elbraulio.genetical.Evolution;
-import com.elbraulio.genetical.FittestSelection;
-import com.elbraulio.genetical.Individual;
-import com.elbraulio.genetical.Population;
+import com.elbraulio.genetical.*;
 
 import java.util.List;
 
@@ -30,5 +27,14 @@ public final class DefaultPopulation<T> implements Population<T> {
     @Override
     public List<Individual<T>> individuals() {
         return this.individuals;
+    }
+
+    @Override
+    public Number[] scores(CheckSolution<T> solution) {
+        final Number[] scores = new Number[this.individuals.size()];
+        for (int i = 0; i < scores.length; i++) {
+            scores[i] = solution.score(this.individuals.get(i).genes());
+        }
+        return scores;
     }
 }

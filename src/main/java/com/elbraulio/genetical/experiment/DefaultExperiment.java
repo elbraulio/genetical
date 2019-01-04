@@ -5,6 +5,8 @@ import com.elbraulio.genetical.evolution.FittestEvolve;
 import com.elbraulio.genetical.fittestseleccion.SubsetOf;
 import org.apache.log4j.Logger;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,20 +40,14 @@ public final class DefaultExperiment<T> implements Experiment<T> {
         final List<Number> fittestScore = new LinkedList<>();
         final List<Population<T>> offspring = new LinkedList<>();
         offspring.add(startPop);
+        Number[] score =
+                offspring.get(offspring.size() - 1).scores(this.solution);
+        double maxScore = 0d;
         while (
-                this.solution.score(
-                        offspring.get(offspring.size() - 1).fittest(
-                                this.fittestSelection
-                        ).genes()
-                ) < minScore
+                (maxScore = findMax(score)) < minScore
         ) {
-            scoreAverage.add(scoreAverage(offspring.get(offspring.size() - 1)));
-            fittestScore.add(
-                    this.solution.score(
-                            offspring.get(offspring.size() - 1)
-                                    .fittest(this.fittestSelection).genes()
-                    )
-            );
+            scoreAverage.add(scoreAverage(score));
+            fittestScore.add(maxScore);
             offspring.add(
                     offspring.get(offspring.size() - 1).evolve(
                             new FittestEvolve<>(
@@ -64,14 +60,14 @@ public final class DefaultExperiment<T> implements Experiment<T> {
                             )
                     )
             );
+            this.printSolution.print(
+                    offspring.get(offspring.size() - 1).individuals()
+                            .get(fittestIndex(score))
+            );
+            score = offspring.get(offspring.size() - 1).scores(this.solution);
         }
-        scoreAverage.add(scoreAverage(offspring.get(offspring.size() - 1)));
-        fittestScore.add(
-                this.solution.score(
-                        offspring.get(offspring.size() - 1)
-                                .fittest(this.fittestSelection).genes()
-                )
-        );
+        scoreAverage.add(scoreAverage(score));
+        fittestScore.add(maxScore);
         this.logger.info(
                 "Solution found after " + offspring.size() + " " +
                         "offspring"
@@ -94,17 +90,32 @@ public final class DefaultExperiment<T> implements Experiment<T> {
         ).show();
     }
 
+    private int fittestIndex(Number[] score) {
+        int max = 0;
+        for (int i = 0; i < score.length; i++) {
+            max = score[max].doubleValue() > score[i].doubleValue() ? max : i;
+        }
+        return max;
+    }
+
+    private double findMax(Number[] score) {
+        double max = 0;
+        for (int i = 0; i < score.length; i++) {
+            max = score[i].doubleValue() > max ? score[i].doubleValue() : max;
+        }
+        return max;
+    }
+
     /**
      * calculate score average for a given Population
      *
-     * @param population to calculate score average
      * @return score average
      */
-    private Number scoreAverage(Population<T> population) {
+    private Number scoreAverage(Number[] score) {
         double average = 0d;
-        for (Individual<T> individual : population.individuals()) {
-            average += this.solution.score(individual.genes());
+        for (int i = 0; i < score.length; i++) {
+            average += score[i].doubleValue();
         }
-        return average / population.individuals().size();
+        return average / score.length;
     }
 }

@@ -74,9 +74,25 @@ ___genetical__ provide a default evolve wich is _FittestEvolve_, wich needs a __
 
 Follows the concept of [Natural Selection](https://en.wikipedia.org/wiki/Natural_selection). Wich says that the fittest individual will survive and reproduce.
 
+#### Crosses
 
+Defines the way that two _Individuals_ will cross.
+
+#### Mutation
+
+Make mutations to the decendant's genes  after the cross.
+
+# 2.3 Evolve
+
+You have to use `evolve()` method and you will get a new _Population_ which is a new generation of _Individuals_.
 
 ```java
-startPop.evolve()
+Population<String> nextGeneration = startPop.evolve(
+                            new FittestEvolve<>(
+                                    (individuals) -> { return /* fittest */},
+                                    (genesA, genesB) -> { return /* crossed genes */},
+                                    (genes) -> { return /* mutated genes */}
+                            )
+                    );
 ```
 

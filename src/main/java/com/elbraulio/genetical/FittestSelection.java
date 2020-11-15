@@ -1,10 +1,10 @@
 package com.elbraulio.genetical;
 
-import java.util.List;
+import java.util.Set;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public interface FittestSelection<T> {
-    Individual<T> fittest(List<Individual<T>> individuals);
+    Individual<T> fittest(Set<Individual<T>> individuals);
 }

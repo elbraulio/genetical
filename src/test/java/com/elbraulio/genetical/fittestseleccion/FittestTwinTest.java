@@ -2,15 +2,17 @@ package com.elbraulio.genetical.fittestseleccion;
 
 import com.elbraulio.genetical.Individual;
 import com.elbraulio.genetical.individual.DefaultIndividual;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public class FittestTwinTest {
     @Test
@@ -19,14 +21,9 @@ public class FittestTwinTest {
         genesA.add('a');
         final List<Character> genesB = new ArrayList<>(1);
         genesB.add('b');
-        final List<Individual<Character>> individuals = new ArrayList<>(2);
+        final Set<Individual<Character>> individuals = new HashSet<>();
         individuals.add(new DefaultIndividual<>(genesA));
         individuals.add(new DefaultIndividual<>(genesB));
-        MatcherAssert.assertThat(
-                new FittestTwin<>(
-                        genesB
-                ).fittest(individuals),
-                Matchers.equalTo(new DefaultIndividual<>(genesB))
-        );
+        assertEquals(new DefaultIndividual<>(genesB), new FittestTwin<>(genesB).fittest(individuals));
     }
 }

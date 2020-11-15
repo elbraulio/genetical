@@ -2,12 +2,12 @@ package com.elbraulio.genetical.mutation;
 
 import com.elbraulio.genetical.Mutation;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public final class CharMutation implements Mutation<Character> {
     private final double threshold;
@@ -26,18 +26,16 @@ public final class CharMutation implements Mutation<Character> {
             throw new IllegalArgumentException(
                     "mutation threshold must be in range [0, 1)"
             );
-        final List<Character> mutation = new ArrayList<>(origin.size());
-        for (Character gene : origin) {
-            if (this.threshold > Math.random()) {
-                mutation.add(
-                        this.alphabet.charAt(
-                                this.random.nextInt(this.alphabet.length())
-                        )
-                );
-            } else {
-                mutation.add(gene);
-            }
-        }
-        return mutation;
+        return origin.stream()
+                .map(c -> shouldMutate() ? getMutatedChar() : c)
+                .collect(Collectors.toList());
+    }
+
+    private boolean shouldMutate() {
+        return this.threshold > Math.random();
+    }
+
+    private Character getMutatedChar() {
+        return this.alphabet.charAt(this.random.nextInt(this.alphabet.length()));
     }
 }

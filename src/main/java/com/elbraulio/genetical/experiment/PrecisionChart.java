@@ -25,7 +25,7 @@ public final class PrecisionChart {
         double[] x = new double[this.values.length];
         double[] y = new double[this.values.length];
         for (int i = 0; i < y.length; i++) {
-            x[i] = i+1;
+            x[i] = i + 1;
             y[i] = this.values[i].doubleValue();
         }
         XYChart chart = new XYChartBuilder()

@@ -1,16 +1,18 @@
 package com.elbraulio.genetical.mutation;
 
-import com.elbraulio.genetical.mutation.CharMutation;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertTrue;
+
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public class CharMutationTest {
     @Test
@@ -19,11 +21,8 @@ public class CharMutationTest {
         genes.add('1');
         genes.add('2');
         genes.add('3');
-        MatcherAssert.assertThat(
-                new CharMutation(
-                        0.99, new Random(), "abc"
-                ).genes(genes).toArray(new Character[3]),
-                Matchers.not(new Character[]{'a', 'b', 'c'})
-        );
+        List<Character> abcs = new CharMutation(0.999, new Random(), "abc")
+                .genes(genes);
+        assertTrue(Arrays.stream(new Character[]{'a', 'b', 'c'}).collect(Collectors.toList()).containsAll(abcs));
     }
 }

@@ -4,25 +4,22 @@ import com.elbraulio.genetical.CheckSolution;
 import com.elbraulio.genetical.Individual;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public final class EqualSolution<T> implements CheckSolution<T> {
     private final Individual<T> goal;
 
     public EqualSolution(Individual<T> goal) {
-
         this.goal = goal;
     }
 
     @Override
-    public int score(List<T> genes) {
-        int score = 0;
-        for (int i = 0; i < genes.size(); i++) {
-            if (genes.get(i).equals(this.goal.genes().get(i)))
-                score++;
-        }
-        return score;
+    public Number score(List<T> genes) {
+        return IntStream.range(0, genes.size())
+                .filter(i -> genes.get(i).equals(this.goal.genes().get(i)))
+                .count();
     }
 }

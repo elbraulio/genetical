@@ -1,19 +1,19 @@
 package com.elbraulio.genetical.evolution;
 
-import com.elbraulio.genetical.Crosses;
-import com.elbraulio.genetical.FittestSelection;
 import com.elbraulio.genetical.Individual;
 import com.elbraulio.genetical.Mutation;
 import com.elbraulio.genetical.individual.DefaultIndividual;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public class FittestEvolveTest {
     @Test
@@ -22,38 +22,15 @@ public class FittestEvolveTest {
         genes.add(1);
         genes.add(2);
         genes.add(3);
-        final List<Individual<Integer>> ancestors = new ArrayList<>(3);
+        Set<Individual<Integer>> ancestors = new HashSet<>();
         ancestors.add(new DefaultIndividual<>(genes));
         ancestors.add(new DefaultIndividual<>(genes));
         ancestors.add(new DefaultIndividual<>(genes));
-        MatcherAssert.assertThat(
-                new FittestEvolve<>(
-                        new FittestSelection<Integer>() {
-                            @Override
-                            public Individual<Integer> fittest(
-                                    List<Individual<Integer>> individuals
-                            ) {
-                                return individuals.get(0);
-                            }
-                        },
-                        new Crosses<Integer>() {
-                            @Override
-                            public List<Integer> genes(
-                                    List<Integer> genesA, List<Integer> genesB
-                            ) {
-                                return genesA;
-                            }
-                        },
-                        new Mutation<Integer>() {
-                            @Override
-                            public List<Integer> genes(
-                                    List<Integer> origin
-                            ) {
-                                return origin;
-                            }
-                        }
-                ).nextGeneration(ancestors).individuals(),
-                Matchers.contains(ancestors.toArray(new Individual[3]))
-        );
+        Set<Individual<Integer>> nextGen = new FittestEvolve<>(
+                individuals -> individuals.stream().findFirst().orElse(null),
+                (genesA, genesB) -> genesA,
+                (Mutation<Integer>) origin -> origin
+        ).nextGeneration(ancestors).individuals();
+        assertEquals(ancestors, nextGen);
     }
 }

@@ -2,11 +2,12 @@ package com.elbraulio.genetical.crosses;
 
 import com.elbraulio.genetical.Crosses;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public final class RandomCross<T> implements Crosses<T> {
     private final double threshold;
@@ -21,13 +22,8 @@ public final class RandomCross<T> implements Crosses<T> {
             throw new IllegalArgumentException(
                     "mutation threshold must be in range [0, 1)"
             );
-        final List<T> newGenes = new ArrayList<>(genesA.size());
-        for (int i = 0; i < genesA.size(); i++) {
-            newGenes.add(
-                    Math.random() < this.threshold ?
-                            genesA.get(i) : genesB.get(i)
-            );
-        }
-        return newGenes;
+        return IntStream.range(0, genesA.size())
+                .mapToObj(i -> Math.random() < this.threshold ? genesA.get(i) : genesB.get(i))
+                .collect(Collectors.toList());
     }
 }

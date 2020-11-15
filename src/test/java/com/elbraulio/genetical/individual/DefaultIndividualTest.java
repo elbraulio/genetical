@@ -1,14 +1,14 @@
 package com.elbraulio.genetical.individual;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public class DefaultIndividualTest {
     @Test
@@ -17,9 +17,6 @@ public class DefaultIndividualTest {
         genes.add(1);
         genes.add(2);
         genes.add(3);
-        MatcherAssert.assertThat(
-                new DefaultIndividual<>(genes).genes(),
-                Matchers.contains(genes.toArray(new Integer[3]))
-        );
+        assertEquals(genes, new DefaultIndividual<>(genes).genes());
     }
 }

@@ -2,15 +2,17 @@ package com.elbraulio.genetical.population;
 
 import com.elbraulio.genetical.*;
 
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public final class DefaultPopulation<T> implements Population<T> {
-    private final List<Individual<T>> individuals;
+    private final Set<Individual<T>> individuals;
 
-    public DefaultPopulation(List<Individual<T>> individuals) {
+    public DefaultPopulation(Set<Individual<T>> individuals) {
         this.individuals = individuals;
     }
 
@@ -25,16 +27,13 @@ public final class DefaultPopulation<T> implements Population<T> {
     }
 
     @Override
-    public List<Individual<T>> individuals() {
+    public Set<Individual<T>> individuals() {
         return this.individuals;
     }
 
     @Override
-    public Number[] scores(CheckSolution<T> solution) {
-        final Number[] scores = new Number[this.individuals.size()];
-        for (int i = 0; i < scores.length; i++) {
-            scores[i] = solution.score(this.individuals.get(i).genes());
-        }
-        return scores;
+    public Map<String, Number> scores(CheckSolution<T> solution) {
+        return this.individuals.stream()
+                .collect(Collectors.toMap(Individual::id, i -> solution.score(i.genes())));
     }
 }

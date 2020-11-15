@@ -5,15 +5,15 @@ import com.elbraulio.genetical.evolution.FittestEvolve;
 import com.elbraulio.genetical.fittestseleccion.SubsetOf;
 import org.apache.log4j.Logger;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
-public final class DefaultExperiment<T> implements Experiment<T> {
+public final class DefaultExperiment<T> {
 
     private final CheckSolution<T> solution;
     private final FittestSelection<T> fittestSelection;
@@ -34,18 +34,14 @@ public final class DefaultExperiment<T> implements Experiment<T> {
         this.printSolution = printSolution;
     }
 
-    @Override
     public void run(int tournamentSize, int minScore, Population<T> startPop) {
         final List<Number> scoreAverage = new LinkedList<>();
         final List<Number> fittestScore = new LinkedList<>();
         final List<Population<T>> offspring = new LinkedList<>();
         offspring.add(startPop);
-        Number[] score =
-                offspring.get(offspring.size() - 1).scores(this.solution);
-        double maxScore = 0d;
-        while (
-                (maxScore = findMax(score)) < minScore
-        ) {
+        Map<String, Number> score = offspring.get(offspring.size() - 1).scores(this.solution);
+        double maxScore;
+        while ((maxScore = findMax(score)) < minScore) {
             scoreAverage.add(scoreAverage(score));
             fittestScore.add(maxScore);
             offspring.add(
@@ -60,10 +56,12 @@ public final class DefaultExperiment<T> implements Experiment<T> {
                             )
                     )
             );
-            this.printSolution.print(
-                    offspring.get(offspring.size() - 1).individuals()
-                            .get(fittestIndex(score))
-            );
+            String fittest = fittestId(score);
+            this.printSolution.print(offspring.get(offspring.size() - 1).individuals().stream()
+                    .filter(i -> i.id().equals(fittest))
+                    .limit(1)
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("Individual must be found")));
             score = offspring.get(offspring.size() - 1).scores(this.solution);
         }
         scoreAverage.add(scoreAverage(score));
@@ -78,32 +76,30 @@ public final class DefaultExperiment<T> implements Experiment<T> {
                 )
         );
         new PrecisionChart(
-                scoreAverage.toArray(new Number[scoreAverage.size()]),
+                scoreAverage.toArray(new Number[0]),
                 "Score average by offspring.\nScore accepted as fittest = " + minScore,
                 minScore
 
         ).show();
         new PrecisionChart(
-                fittestScore.toArray(new Number[fittestScore.size()]),
+                fittestScore.toArray(new Number[0]),
                 "Fittest score by offspring.\nScore accepted as fittest = " + minScore,
                 minScore
         ).show();
     }
 
-    private int fittestIndex(Number[] score) {
-        int max = 0;
-        for (int i = 0; i < score.length; i++) {
-            max = score[max].doubleValue() > score[i].doubleValue() ? max : i;
-        }
-        return max;
+    private String fittestId(Map<String, Number> score) {
+        return score.entrySet().stream()
+                .max(Comparator.comparingDouble(e -> e.getValue().doubleValue()))
+                .map(Map.Entry::getKey)
+                .orElse("");
     }
 
-    private double findMax(Number[] score) {
-        double max = 0;
-        for (int i = 0; i < score.length; i++) {
-            max = score[i].doubleValue() > max ? score[i].doubleValue() : max;
-        }
-        return max;
+    private double findMax(Map<String, Number> score) {
+        return score.entrySet().stream()
+                .max(Comparator.comparingDouble(e -> e.getValue().doubleValue()))
+                .map(e -> e.getValue().doubleValue())
+                .orElse(0d);
     }
 
     /**
@@ -111,11 +107,10 @@ public final class DefaultExperiment<T> implements Experiment<T> {
      *
      * @return score average
      */
-    private Number scoreAverage(Number[] score) {
-        double average = 0d;
-        for (int i = 0; i < score.length; i++) {
-            average += score[i].doubleValue();
-        }
-        return average / score.length;
+    private Number scoreAverage(Map<String, Number> score) {
+        return score.values().stream()
+                .mapToDouble(Number::doubleValue)
+                .average()
+                .orElse(0d);
     }
 }

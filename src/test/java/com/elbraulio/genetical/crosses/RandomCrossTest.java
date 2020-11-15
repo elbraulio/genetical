@@ -1,16 +1,14 @@
 package com.elbraulio.genetical.crosses;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public class RandomCrossTest {
     @Test
@@ -23,10 +21,7 @@ public class RandomCrossTest {
         genesB.add(4);
         genesB.add(5);
         genesB.add(6);
-        MatcherAssert.assertThat(
-                new RandomCross<Integer>(0d).genes(genesA, genesB),
-                Matchers.contains(genesB.toArray(new Integer[3]))
-        );
+        assertEquals(genesB, new RandomCross<Integer>(0d).genes(genesA, genesB));
     }
 
     @Test
@@ -39,17 +34,14 @@ public class RandomCrossTest {
         genesB.add(4);
         genesB.add(5);
         genesB.add(6);
-        MatcherAssert.assertThat(
-                new RandomCross<Integer>(0.99d).genes(genesA, genesB),
-                Matchers.contains(genesA.toArray(new Integer[3]))
-        );
+        assertEquals(genesA, new RandomCross<Integer>(0.999d).genes(genesA, genesB));
     }
 
     @Test
     public void illegalArgument() {
         try {
             new RandomCross<>(1).genes(null, null);
-            assertTrue(false);
+            fail();
         } catch (IllegalArgumentException e) {
             assertTrue(true);
         }

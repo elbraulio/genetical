@@ -1,21 +1,17 @@
 package com.elbraulio.genetical.genoseed;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.Random;
 
+import static org.junit.Assert.assertEquals;
+
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public class IntSeedTest {
     @Test
     public void size() {
-        MatcherAssert.assertThat(
-                new IntSeed(10, new Random()).genes(10).size(),
-                Matchers.is(10)
-        );
+        assertEquals(10, new IntSeed(10, new Random()).genes(10).size());
     }
-
 }

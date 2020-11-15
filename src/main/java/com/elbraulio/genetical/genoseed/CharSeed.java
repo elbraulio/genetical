@@ -2,12 +2,13 @@ package com.elbraulio.genetical.genoseed;
 
 import com.elbraulio.genetical.GenotypeSeed;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
 public final class CharSeed implements GenotypeSeed<Character> {
     private final Random random;
@@ -19,15 +20,10 @@ public final class CharSeed implements GenotypeSeed<Character> {
     }
 
     @Override
-    public List<Character> genes(int size) {
-        final List<Character> genes = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            genes.add(
-                    this.alphabet.charAt(
-                            this.random.nextInt(this.alphabet.length())
-                    )
-            );
-        }
-        return genes;
+    public List<Character> genes(Integer size) {
+        return IntStream.range(0, size)
+                .boxed()
+                .map(i -> this.alphabet.charAt(this.random.nextInt(this.alphabet.length())))
+                .collect(Collectors.toList());
     }
 }

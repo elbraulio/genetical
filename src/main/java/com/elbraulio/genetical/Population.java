@@ -1,13 +1,17 @@
 package com.elbraulio.genetical;
 
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * @author Braulio Lopez (brauliop.3@gmail.com)
+ * @author Braulio Lopez (elbraulio274@gmail.com)
  */
-public interface Population <T> {
+public interface Population<T> {
     Population<T> evolve(Evolution<T> evolution);
+
     Individual<T> fittest(FittestSelection<T> selection);
-    List<Individual<T>> individuals();
-    Number[] scores(CheckSolution<T> solution);
+
+    Set<Individual<T>> individuals();
+
+    Map<String, Number> scores(CheckSolution<T> solution);
 }

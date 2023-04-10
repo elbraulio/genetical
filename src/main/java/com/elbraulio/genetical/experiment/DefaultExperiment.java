@@ -3,7 +3,8 @@ package com.elbraulio.genetical.experiment;
 import com.elbraulio.genetical.*;
 import com.elbraulio.genetical.evolution.FittestEvolve;
 import com.elbraulio.genetical.fittestseleccion.SubsetOf;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -20,7 +21,7 @@ public final class DefaultExperiment<T> {
     private final Crosses<T> crosses;
     private final Mutation<T> mutation;
     private final PrintSolution<T> printSolution;
-    private final Logger logger = Logger.getLogger(DefaultExperiment.class);
+    private final Logger logger = LogManager.getLogger(DefaultExperiment.class);
 
     public DefaultExperiment(
             CheckSolution<T> solution, FittestSelection<T> fittestSelection,
